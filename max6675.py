@@ -2,7 +2,7 @@ from machine import Pin
 import utime
 
 class MAX6675():
-    def __init__(self, so_pin=19, cs_pin=23, sck_pin=5):
+    def __init__(self, so_pin=13, cs_pin=15, sck_pin=14):
         self.cs = Pin(cs_pin, Pin.OUT)
         self.so = Pin(so_pin, Pin.IN)
         self.sck = Pin(sck_pin, Pin.OUT)

@@ -1,14 +1,19 @@
-from dht import DHT11
-from machine import Pin
-from time import sleep
+import  dht
+import  machine
+import  time
+from ufirebase import firebase_real_time_database
+# Create a DHT11 object
+d = dht.DHT11(machine.Pin(5))  # GPIO5
+
 
 def get_humidity():
-    sensorDHT = DHT11 (Pin(5))
-    sleep (1)
-    sensorDHT.measure ()
-    temp=sensorDHT.temperature ()
-    hum=sensorDHT.humidity()
+    try:
+        d.measure()
+        #temp_celsius = d.temperature()
+        humidity = d.humidity()
+        print("Humidity:", humidity, "%")
+        firebase_real_time_database("Estado/humidity", humidity)
+    except Exception as e:
+        print("Error:", e)
+    time.sleep(2)  # Delay before the next reading
 
-    print ("T={:02f} ºC, H={:02f} %".format (temp,hum))
-        
-    return hum
